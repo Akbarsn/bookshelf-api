@@ -69,13 +69,38 @@ module.exports = {
     return GenericErrorResponse(h, "Buku gagal ditambahkan");
   },
   getAllBooksHandler: (request, h) => {
-    const books = Books.map((e) => ({
+    const { name, reading, finished } = request.query;
+    let books = Books;
+
+    if (name !== undefined) {
+      books = books.filter((e) =>
+        e.name.toLowerCase().includes(name.toLowerCase())
+      );
+    }
+
+    if (reading !== undefined) {
+      if (reading === 0 || reading === "0") {
+        books = books.filter((e) => e.reading === false);
+      } else {
+        books = books.filter((e) => e.reading === true);
+      }
+    }
+
+    if (finished !== undefined) {
+      if (finished === 0 || finished === "0") {
+        books = books.filter((e) => e.finished === false);
+      } else {
+        books = books.filter((e) => e.finished === true);
+      }
+    }
+
+    books = books.map((e) => ({
       id: e.id,
       name: e.name,
       publisher: e.publisher,
     }));
 
-    return SuccessNoMsgResponse(h, 200, books);
+    return SuccessNoMsgResponse(h, 200, { books });
   },
   getDetailBookByIDHandler: (request, h) => {
     const { bookId } = request.params;

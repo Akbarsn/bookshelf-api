@@ -4,6 +4,7 @@ const {
   ErrorResponse,
   GenericErrorResponse,
   SuccessResponse,
+  SuccessNoMsgResponse,
 } = require("../utils/custom_response");
 
 module.exports = {
@@ -65,5 +66,14 @@ module.exports = {
       });
     }
     return GenericErrorResponse(h, "Buku gagal ditambahkan");
+  },
+  getAllBooksHandler: (request, h) => {
+    const books = Books.map((e) => ({
+      id: e.id,
+      name: e.name,
+      publisher: e.publisher,
+    }));
+
+    return SuccessNoMsgResponse(h, 200, books);
   },
 };

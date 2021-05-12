@@ -1,9 +1,14 @@
-const { createBookHandler } = require("../handlers");
+const handlers = require("../handlers");
 
 module.exports = [
   {
     method: "POST",
     path: "/books",
-    handler: createBookHandler,
+    handler: handlers.createBookHandler,
+  },
+  {
+    method: "GET",
+    path: "/books",
+    handler: handlers.getAllBooksHandler,
   },
 ];

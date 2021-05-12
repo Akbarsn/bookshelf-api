@@ -30,4 +30,14 @@ module.exports = {
 
     return response;
   },
+  SuccessNoMsgResponse: (h, statusCode, data) => {
+    const response = h
+      .response({
+        status: "success",
+        data,
+      })
+      .code(statusCode);
+
+    return response;
+  },
 };

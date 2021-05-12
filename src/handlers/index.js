@@ -76,4 +76,14 @@ module.exports = {
 
     return SuccessNoMsgResponse(h, 200, books);
   },
+  getDetailBookByIDHandler: (request, h) => {
+    const { bookId } = request.params;
+    const book = Books.filter((e) => e.id === bookId);
+
+    if (book.length === 0) {
+      return ErrorResponse(h, 404, "Buku tidak ditemukan");
+    }
+
+    return SuccessNoMsgResponse(h, 200, { book: book[0] });
+  },
 };

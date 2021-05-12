@@ -11,4 +11,9 @@ module.exports = [
     path: "/books",
     handler: handlers.getAllBooksHandler,
   },
+  {
+    method: "GET",
+    path: "/books/{bookId}",
+    handler: handlers.getDetailBookByIDHandler,
+  },
 ];

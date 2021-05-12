@@ -16,4 +16,9 @@ module.exports = [
     path: "/books/{bookId}",
     handler: handlers.getDetailBookByIDHandler,
   },
+  {
+    method: "PUT",
+    path: "/books/{bookId}",
+    handler: handlers.updateBookByIDHandler,
+  },
 ];

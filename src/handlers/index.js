@@ -5,6 +5,7 @@ const {
   GenericErrorResponse,
   SuccessResponse,
   SuccessNoMsgResponse,
+  CustomResponse,
 } = require("../utils/custom_response");
 
 module.exports = {
@@ -85,5 +86,59 @@ module.exports = {
     }
 
     return SuccessNoMsgResponse(h, 200, { book: book[0] });
+  },
+  updateBookByIDHandler: (request, h) => {
+    const { bookId } = request.params;
+    const {
+      name,
+      year,
+      author,
+      summary,
+      publisher,
+      pageCount,
+      readPage,
+      reading,
+    } = request.payload;
+
+    if (name === undefined) {
+      return ErrorResponse(
+        h,
+        400,
+        "Gagal memperbarui buku. Mohon isi nama buku"
+      );
+    }
+    if (readPage > pageCount) {
+      return ErrorResponse(
+        h,
+        400,
+        "Gagal memperbarui buku. readPage tidak boleh lebih besar dari pageCount"
+      );
+    }
+
+    const bookIdx = Books.findIndex((e) => e.id === bookId);
+    if (bookIdx < 0) {
+      return ErrorResponse(
+        h,
+        404,
+        "Gagal memperbarui buku. Id tidak ditemukan"
+      );
+    }
+
+    Books[bookIdx] = {
+      ...Books[bookIdx],
+      name,
+      year,
+      author,
+      summary,
+      publisher,
+      pageCount,
+      readPage,
+      reading,
+    };
+
+    return CustomResponse(h, 200, {
+      status: "success",
+      message: "Buku berhasil diperbarui",
+    });
   },
 };

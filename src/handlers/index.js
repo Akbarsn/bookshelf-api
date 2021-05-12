@@ -141,4 +141,18 @@ module.exports = {
       message: "Buku berhasil diperbarui",
     });
   },
+  deleteBookHandler: (request, h) => {
+    const { bookId } = request.params;
+
+    const bookIdx = Books.findIndex((e) => e.id === bookId);
+    if (bookIdx < 0) {
+      return ErrorResponse(h, 404, "Buku gagal dihapus. Id tidak ditemukan");
+    }
+
+    Books.splice(bookIdx, 1);
+    return CustomResponse(h, 200, {
+      status: "success",
+      message: "Buku berhasil dihapus",
+    });
+  },
 };

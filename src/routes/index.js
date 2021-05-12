@@ -21,4 +21,9 @@ module.exports = [
     path: "/books/{bookId}",
     handler: handlers.updateBookByIDHandler,
   },
+  {
+    method: "DELETE",
+    path: "/books/{bookId}",
+    handler: handlers.deleteBookHandler,
+  },
 ];

@@ -41,11 +41,7 @@ module.exports = {
     return response;
   },
   CustomResponse: (h, statusCode, data) => {
-    const response = h
-      .response({
-        data,
-      })
-      .code(statusCode);
+    const response = h.response(data).code(statusCode);
 
     return response;
   },
